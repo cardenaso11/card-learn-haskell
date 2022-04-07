@@ -1,0 +1,10 @@
+*.bak
+result
+dist-newstyle
+**/.tags
+**/.TAGS
+**/.etags
+**/.ctags
+**/tags
+**/TAGS
+_cache/
