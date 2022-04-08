@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 import           Data.Monoid (mappend)
 import           Hakyll
 
@@ -22,8 +23,8 @@ main = hakyllWith hakyllConfig $ do
     match "tutorials/*" $ do
       route $ setExtension "html"
       compile $ pandocCompiler
-        >>= loadAndApplyTemplate "templates/tutorial.html" postCtx
-        >>= loadAndApplyTemplate "templates/default.html" postCtx
+        >>= loadAndApplyTemplate "templates/tutorial.html" tutCtx
+        >>= loadAndApplyTemplate "templates/default.html" tutCtx
         >>= relativizeUrls
 
     match "posts/*" $ do
@@ -51,9 +52,9 @@ main = hakyllWith hakyllConfig $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
-            tutorials <- recentFirst =<< loadAll "tutorials/*"
-            let indexCtx =
+            posts :: [Item String] <- recentFirst =<< loadAll "posts/*"
+            tutorials :: [Item String] <- loadAll "tutorials/*"
+            let indexCtx :: Context String =
                     listField "posts" postCtx (return posts) `mappend`
                     listField "tutorials" tutCtx (pure tutorials) <>
                     defaultContext
@@ -77,6 +78,4 @@ postCtx =
     defaultContext
 
 tutCtx :: Context String
-tutCtx =
-  dateField "date" "%B %e, %Y"
-  <> defaultContext
+tutCtx = postCtx -- defaultContext
