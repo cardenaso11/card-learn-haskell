@@ -2,5 +2,8 @@
 title: Contact
 ---
 
-I live in a small hut in the mountains of Kumano Kodō on Kii Hantō and would not
-like to be contacted.
+[My GitHub](https://github.com/cardenaso11)
+
+I don't currently have an email posted here because I am a little afraid of getting spammed to death.
+
+Probably eventually I'll put a community discord here.
