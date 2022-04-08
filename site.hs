@@ -37,11 +37,11 @@ main = hakyllWith hakyllConfig $ do
     create ["archive.html"] $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            tutorials :: [Item String] <- loadAll "tutorials/*"
             let archiveCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Archives"            `mappend`
-                    defaultContext
+                    listField "tutorials" postCtx (pure tutorials)
+                    <> constField "title" "Archives"
+                    <> defaultContext
 
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -78,4 +78,4 @@ postCtx =
     defaultContext
 
 tutCtx :: Context String
-tutCtx = postCtx -- defaultContext
+tutCtx = defaultContext
